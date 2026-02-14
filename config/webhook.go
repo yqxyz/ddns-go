@@ -45,7 +45,7 @@ func ExecWebhook(domains *Domains, conf *Config) (v4Status updateStatusType, v6S
 		// 第3次失败才触发一次webhook
 		if v4Status == UpdatedFailed || v6Status == UpdatedFailed {
 			updatedFailedTimes++
-			if updatedFailedTimes != 3 {
+			if updatedFailedTimes < 3 {
 				util.Log("将不会触发Webhook, 仅在第 3 次失败时触发一次Webhook, 当前失败次数：%d", updatedFailedTimes)
 				return
 			}
